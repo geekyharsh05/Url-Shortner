@@ -1,0 +1,141 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "URL Shortener API",
+    "description": "API for shortening URLs and retrieving analytics",
+    "version": "1.0.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "paths": {
+    "/api/generate": {
+      "post": {
+        "summary": "Generate Short URL",
+        "description": "Generates a new short URL for the provided long URL.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "The original long URL to be shortened."
+                  }
+                },
+                "required": ["url"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Short URL generated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "description": "The generated short URL."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Short URL"
+        ]
+      }
+    },
+    "/api/{shortID}": {
+      "get": {
+        "summary": "Redirect to the original URL using the short ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "shortID",
+            "required": true,
+            "description": "The short ID associated with the URL",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Redirect to the original URL"
+          },
+          "404": {
+            "description": "Short ID not found"
+          }
+        },
+        "tags": [
+          "Redirect"
+        ]
+      }
+    },
+    "/api/analytics/{shortID}": {
+      "get": {
+        "summary": "Get Analytics for Short URL",
+        "description": "Retrieves analytics data for a specific short URL, including visit history.",
+        "parameters": [
+          {
+            "name": "shortID",
+            "in": "path",
+            "required": true,
+            "description": "Short identifier for the URL.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved analytics data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "redirectURL": {
+                      "type": "string",
+                      "description": "The short URL."
+                    },
+                    "url": {
+                      "type": "string",
+                      "description": "The original long URL."
+                    },
+                    "visitHistory": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "timestamp": {
+                            "type": "integer",
+                            "description": "Visit timestamp."
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "URL not found."
+          }
+        },
+        "tags": [
+          "Analytics"
+        ]
+      }
+    }
+  }
+}
