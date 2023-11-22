@@ -37,7 +37,6 @@ export const redirectShortUrl = async (req: Request, res: Response) => {
         },
       }
     );
-    console.log('Database Entry:', entry);
 
     if (!entry || !entry.redirectURL) {
       return res.status(404).send('URL not found');
@@ -66,6 +65,3 @@ export const handleGetAnalytics = async (req: Request, res: Response) => {
     console.error(error);
   }
 };
-
-
-
