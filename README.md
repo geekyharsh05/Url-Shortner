@@ -2,7 +2,11 @@
 
 This Node.js and Express application serves as a URL shortener service with MongoDB as the backend database. It allows users to create short URLs for long URLs and handles the redirection to the original URLs
 
-## Prerequisites
+## Requirements
+
+- Docker
+
+or
 
 - nodejs
 - MongoDB
@@ -11,31 +15,47 @@ This Node.js and Express application serves as a URL shortener service with Mong
 
 ## Installation
 
-Clone the project
+### With docker
+
+<details>
+<summary>
+Click Me
+</summary>
+
+1. Clone the repository
+2. Use docker-compose to run the server
 
 ```bash
-
 git clone git@github.com:geekyharsh05/Url-Shortner.git
+docker-compose up -d
 ```
 
-Install necessary dependencies
+</details>
+
+### Without docker
+
+<details>
+<summary>
+Click Me
+</summary>
+
+1. Clone the repository
+2. Install the dependencies
+3. Run the server
 
 ```bash
-
+git clone git@github.com:geekyharsh05/Url-Shortner.git
 cd Url-Shortner
 pnpm install
-```
-
-Run the dev server with
-
-```bash
-
 pnpm start
 ```
 
+</details>
+
+
 ### NOTE: Setup environment variable in .env
 
-## API Endpoint
+## API Endpoints
 
 ### Generate Short URL
 
